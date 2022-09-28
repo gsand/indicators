@@ -18,11 +18,14 @@ f_ma(_src,_malen, _matype) =>
     if _matype == 'WMA'
         result := ta.wma(_src, _malen)
         result
+    if _matype == 'WWMA'
+        result := nz(result[1]) + (_src -nz(result[1]))/_malen
+        result
+
     result
 
 src             = input.source(title='Source', defval=hl2)
-matype          = input.string(title='MA Type', defval='EMA', options=['EMA', 'SMA', 'HMA', 'WMA'])
-ma_offset       = input.int(title='MA Offset', defval=0)
+matype          = input.string(title='MA Type', defval='EMA', options=['EMA', 'SMA', 'HMA', 'WMA', 'WWMA'])
 showLine        = input.bool(false, title='Display MA Line')
 macloudleading = input.int( 0, minval=0, title='Plot Offset')
 
