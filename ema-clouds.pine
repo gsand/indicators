@@ -20,16 +20,6 @@ f_ma(_src,_malen, _matype) =>
         result
     result
 
-//res = input(title="Resolution", type=resolution, defval="240")
-
-//plot(out1, color=green, offset=ma_offset)
-//plot(out2, color=red, offset=ma_offset)
-
-//lengthshort = input(8, minval = 1, title = "Short EMA Length")
-//lengthlong = input(200, minval = 2, title = "Long EMA Length")
-//emacloudleading = input(50, minval = 0, title = "Leading Period For EMA Cloud")
-//src = input(hl2, title = "Source")
-
 src             = input.source(title='Source', defval=hl2)
 matype          = input.string(title='MA Type', defval='EMA', options=['EMA', 'SMA', 'HMA', 'WMA'])
 ma_offset       = input.int(title='MA Offset', defval=0)
@@ -42,19 +32,21 @@ ema3            = input.bool( true, title='Show EMA Cloud-3')
 ema4            = input.bool( true, title='Show EMA Cloud-4')
 ema5            = input.bool( true, title='Show EMA Cloud-5')
 
-ma_len1         = input(title='EMA1 Short Length', defval=8)
-ma_len2         = input(title='EMA1 Long Length' , defval=9)
-ma_len3         = input(title='EMA2 Short Length', defval=5)
-ma_len4         = input(title='EMA2 Long Length' , defval=13)
-ma_len5         = input(title='EMA3 Short Length', defval=34)
-ma_len6         = input(title='EMA3 Long Length' , defval=50)
-ma_len7         = input(title='EMA4 Short Length', defval=72)
-ma_len8         = input(title='EMA4 Long Length' , defval=89)
-ma_len9         = input(title='EMA5 Short Length', defval=180)
-ma_len10        = input(title='EMA5 Long Length' , defval=200)
+ma_len1         = input.int(title='EMA1 Short Length', defval=8)
+ma_len2         = input.int(title='EMA1 Long Length' , defval=9)
+ma_len3         = input.int(title='EMA2 Short Length', defval=5)
+ma_len4         = input.int(title='EMA2 Long Length' , defval=13)
+ma_len5         = input.int(title='EMA3 Short Length', defval=34)
+ma_len6         = input.int(title='EMA3 Long Length' , defval=50)
+ma_len7         = input.int(title='EMA4 Short Length', defval=72)
+ma_len8         = input.int(title='EMA4 Long Length' , defval=89)
+ma_len9         = input.int(title='EMA5 Short Length', defval=180)
+ma_len10        = input.int(title='EMA5 Long Length' , defval=200)
 
-showlong        = input.bool(false, title='Show Long Alerts')
-showshort       = input.bool(false, title='Show Short Alerts')
+
+// Future Alerts for when this is turned into a strategy
+//showlong        = input.bool(false, title='Show Long Alerts')
+//showshort       = input.bool(false, title='Show Short Alerts')
 
 mashort1        = f_ma(src, ma_len1, matype)
 malong1         = f_ma(src, ma_len2, matype)
@@ -72,7 +64,6 @@ cloudcolour2    = mashort2 >= malong2 ? #4caf50 : #f44336 //  mid-green : orange
 cloudcolour3    = mashort3 >= malong3 ? #2196f3 : #ffb74d //   sky-blue : orange
 cloudcolour4    = mashort4 >= malong4 ? #009688 : #f06292 //  turquoise : pink
 cloudcolour5    = mashort5 >= malong5 ? #05bed5 : #e65100 //       cyan : orangered
-//03abc1
 
 mashortcolor1   = mashort1 >= mashort1[1] ? color.olive : color.maroon
 mashortcolor2   = mashort2 >= mashort2[1] ? color.olive : color.maroon
@@ -103,4 +94,3 @@ fill(mashortline2, malongline2, color=color.new(cloudcolour2, 65), title='MA Clo
 fill(mashortline3, malongline3, color=color.new(cloudcolour3, 70), title='MA Cloud3')
 fill(mashortline4, malongline4, color=color.new(cloudcolour4, 65), title='MA Cloud4')
 fill(mashortline5, malongline5, color=color.new(cloudcolour5, 65), title='MA Cloud5')
-
